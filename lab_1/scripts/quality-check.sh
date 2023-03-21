@@ -1,12 +1,14 @@
 #!/bin/bash
-ROOT_DIR="$(pwd)"
+
+SCRIPT_DIR=`dirname "$(readlink -f "$BASH_SOURCE")"`
+ROOT_DIR=${SCRIPT_DIR%/*}
 FRONT_END_PROJECT_PATH="$ROOT_DIR/project"
 FRONT_END_REP_URL="https://github.com/EPAM-JS-Competency-center/shop-angular-cloudfront"
 
 # To turn off propmt of Angular Analytics
 export NG_CLI_ANALYTICS="false"
 
-source ./utils.sh
+source $SCRIPT_DIR/utils.sh
 
 deleteExistedFolderFully $FRONT_END_PROJECT_PATH
 
@@ -16,13 +18,13 @@ cd $FRONT_END_PROJECT_PATH
 npm install
 
 npm run lint
-exitIfFails $? "lint"
+checkJobPassingSuccessfully $? "lint"
 
 npm run test -- --watch=false
-exitIfFails $? "unit test"
+checkJobPassingSuccessfully $? "unit test"
 
 npm run e2e
-exitIfFails $? "e2e test"
+checkJobPassingSuccessfully $? "e2e test"
 
 npm audit
-exitIfFails $? "audit"
+checkJobPassingSuccessfully $? "audit"

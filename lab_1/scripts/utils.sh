@@ -19,7 +19,7 @@ deleteExistedFolderFully() {
   fi
 }
 
-function exitIfFails {
+function checkJobPassingSuccessfully {
   operation=$2
   if [[ $1 == 0 ]]; then
     echo -e '\nOperation '$operation' is finished successfully'
