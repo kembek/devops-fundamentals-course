@@ -1,0 +1,1 @@
+openssl req -new -x509 -newkey rsa:2048 -sha256 -nodes -keyout shop.key -days 3653 -out shop.crt -config <( cat certificate.cnf )
